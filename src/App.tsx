@@ -1,26 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import { Form } from "./Form";
+import { List } from "./List";
+import { UserProps } from "./types";
 
-function App() {
+export const App = () => {
+  const [users, setUsers] = useState<UserProps[]>([]);
+
+  const add = (newUser: UserProps) => setUsers([...users, newUser]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+    <main className="h-screen flex flex-col lg:flex-row">
+      <div className="w-full py-12 lg:py-0 lg:w-[50%] bg-slate-200 flex items-center justify-center">
+        <Form add={add} />
+      </div>
 
-export default App;
+      <div className="p-8 w-full lg:w-[50%]">
+        <List users={users} />
+      </div>
+    </main>
+  );
+};
